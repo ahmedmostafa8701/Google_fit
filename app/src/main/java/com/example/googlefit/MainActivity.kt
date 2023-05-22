@@ -6,7 +6,6 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.example.googlefit.databinding.ActivityMainBinding
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -19,7 +18,7 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() , RecieveHistoricalData{
     val binding:ActivityMainBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     lateinit var account:GoogleSignInAccount
-    lateinit var fitness:Fitness
+    lateinit var myFitness:MyFitness
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,12 +30,12 @@ class MainActivity : AppCompatActivity() , RecieveHistoricalData{
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun requestDataSet() {
-        fitness = Fitness(this, this)
+        myFitness = MyFitness(this, this)
         val fitnessConfigeration = FitnessConfigeration(this)
         account = fitnessConfigeration.account
         val operationStatus = fitnessConfigeration.grantPermissions()
         if(operationStatus == FitnessConfigeration.ALREADY_GRANTED){
-            fitness.accessGoogleFit(account)
+            myFitness.accessGoogleFit(account)
         }
     }
 
@@ -46,7 +45,7 @@ class MainActivity : AppCompatActivity() , RecieveHistoricalData{
         when (resultCode) {
             Activity.RESULT_OK -> when (requestCode) {
                 FitnessConfigeration.GOOGLE_FIT_PERMISSIONS_REQUEST_CODE -> {
-                    fitness.accessGoogleFit(account)
+                    myFitness.accessGoogleFit(account)
                 }
             }
         }

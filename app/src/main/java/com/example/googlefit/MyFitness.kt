@@ -1,9 +1,7 @@
 package com.example.googlefit
 
 import android.app.Activity
-import android.content.ContentValues.TAG
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.fitness.Fitness
@@ -13,7 +11,7 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.concurrent.TimeUnit
 
-class Fitness (val activity: Activity, val recieveHistoricalData: RecieveHistoricalData){
+class MyFitness (val activity: Activity, val recieveHistoricalData: RecieveHistoricalData){
     @RequiresApi(Build.VERSION_CODES.O)
     fun accessGoogleFit(account: GoogleSignInAccount) {
         val end = LocalDateTime.now()

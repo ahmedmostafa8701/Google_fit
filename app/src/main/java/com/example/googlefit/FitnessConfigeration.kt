@@ -1,6 +1,7 @@
 package com.example.googlefit
 
 import android.app.Activity
+import android.widget.Toast
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.fitness.FitnessOptions
@@ -25,7 +26,8 @@ class FitnessConfigeration(val activity: Activity) {
         account = GoogleSignIn.getAccountForExtension(activity, fitnessOptions)
     }
     fun grantPermissions() : String{
-        if(!GoogleSignIn.hasPermissions(account))
+        var currently_Signed = GoogleSignIn.getLastSignedInAccount(activity)
+        if(!GoogleSignIn.hasPermissions(account) || currently_Signed == null)
         {
             GoogleSignIn.requestPermissions(
                 activity, // your activity
